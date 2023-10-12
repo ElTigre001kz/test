@@ -6,44 +6,40 @@
 <body>
     <h1>Пример использования PHP на HTML-странице</h1>
 
-    <?php
-        
-// Путь к файлу CSV
-$csvFilePath = 'https://raw.githubusercontent.com/ElTigre001kz/test/main/cdn_base.csv';
+    <script>
+        // Путь к файлу CSV
+const csvFilePath = 'https://raw.githubusercontent.com/ElTigre001kz/test/main/cdn_base.csv';
 
 // Запоминаем время начала выполнения скрипта
-$start = microtime(true);
+const start = Date.now();
 
-// Открытие файла CSV для чтения
-$file = fopen($csvFilePath, 'r');
+// Функция для выполнения запроса и чтения файла CSV
+const readCSV = async () => {
+  try {
+    // Выполнение запроса для получения файла CSV
+    const response = await fetch(csvFilePath);
+    const csvData = await response.text();
 
-// Проверка, удалось ли открыть файл
-if ($file) {
-    // Массив для хранения данных из CSV
-    $data = [];
+    // Разделение данных на строки и столбцы
+    const rows = csvData.split('\n');
+    const data = rows.map(row => row.split(','));
 
-    // Чтение файла построчно
-    while (($row = fgetcsv($file)) !== false) {
-        // Добавление строки в массив данных
-        $data[] = $row;
-    }
+    // Вывод данных в консоль
+    // console.log(data);
+  } catch (error) {
+    // Вывод сообщения об ошибке, если файл не удалось получить
+    console.error('Не удалось получить файл CSV:', error);
+  }
 
-    // Закрытие файла
-    fclose($file);
+  // Вычисляем время выполнения скрипта
+  const time = (Date.now() - start) / 1000;
 
-    // Вывод данных
-    print_r($data);
-} else {
-    // Вывод сообщения об ошибке, если файл не удалось открыть
-    echo 'Не удалось открыть файл CSV';
-}
+  // Выводим время выполнения в консоль
+  console.log(`Время выполнения скрипта: ${time.toFixed(4)} секунд.`);
+};
 
-// Вычисляем время выполнения скрипта
-$time = microtime(true) - $start;
-
-// Выводим время выполнения в консоль
-echo "Время выполнения скрипта: " . round($time, 4) . " секунд.";
-
-    ?>
+// Вызов функции для чтения файла CSV
+readCSV();
+    </script>
 </body>
 </html>

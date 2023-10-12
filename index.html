@@ -25,7 +25,7 @@ const readCSV = async () => {
     const data = rows.map(row => row.split(','));
 
     // Вывод данных в консоль
-    // console.log(data);
+    console.log(data);
   } catch (error) {
     // Вывод сообщения об ошибке, если файл не удалось получить
     console.error('Не удалось получить файл CSV:', error);
@@ -36,7 +36,7 @@ const readCSV = async () => {
 
   // Выводим время выполнения в консоль
   console.log(`Время выполнения скрипта: ${time.toFixed(4)} секунд.`);
-    console.log(data);
+    // console.log(data);
 };
 
 // Вызов функции для чтения файла CSV
